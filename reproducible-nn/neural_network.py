@@ -38,6 +38,13 @@ class NeuralNetwork:
     def relu_derivative(self, z):
         z = np.array(z)
         return (z > 0).astype(float)
+    #forwardprop
+    def forward(self, X):
+        self.Z1 = np.dot(X, self.W1) + self.b1
+        self.A1 = self.relu(self.Z1)
+
+        self.Z2 = np.dot(self.A1, self.W2) + self.b2
+        self.A2 = self.sigmoid(self.Z2)
 
     def summary(self):
 
