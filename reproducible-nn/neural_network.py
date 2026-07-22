@@ -45,6 +45,7 @@ class NeuralNetwork:
 
         self.Z2 = np.dot(self.A1, self.W2) + self.b2
         self.A2 = self.sigmoid(self.Z2)
+        
     def backward(self, X, y):
         m = X.shape[0]
 
@@ -58,6 +59,12 @@ class NeuralNetwork:
         self.dW1 = (1 / m) * np.dot(X.T, self.Z1)
         self.db1 = (1 / m) * np.sum(self.dZ1, axis=0, keepdims=True)
 
+    def update(self):
+        self.W1 -= self.learning_rate * self.dW1
+        self.b1 -= self.learning_rate * self.db1
+
+        self.W2 -= self.learning_rate * self.dW2
+        self.b2 -= self.learning_rate * self.db2
 
     def summary(self):
 
