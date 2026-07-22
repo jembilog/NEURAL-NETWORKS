@@ -45,6 +45,19 @@ class NeuralNetwork:
 
         self.Z2 = np.dot(self.A1, self.W2) + self.b2
         self.A2 = self.sigmoid(self.Z2)
+    def backward(self, X, y):
+        m = X.shape[0]
+
+        self.dZ2 = self.A2 - y 
+        self.dW2 = (1 / m) * np.dot(self.A1.T, self.dZ2)
+        self.db2 = (1 / m) * np.sum(self.dZ2, axis=0, keepdims=True)
+
+        self.dA1 = np.dot(self.dZ2, self.W2.T)#chain rule
+
+        self.dZ1 = self.dA1 * self.relu_derivative(self.Z1)
+        self.dW1 = (1 / m) * np.dot(X.T, self.Z1)
+        self.db1 = (1 / m) * np.sum(self.dZ1, axis=0, keepdims=True)
+
 
     def summary(self):
 
